@@ -1,0 +1,40 @@
+ul, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.spymap {
+    max-width: 50rem;
+    position: relative;
+    display: grid;
+    overflow: hidden;
+}
+
+.spymap img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.spymap .dropdown {
+    position: absolute;
+    border-radius: 4px;
+    min-width: 100px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.spymap .dropdown button {
+    margin: 0;
+    padding: .5rem;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    background-color: #fff;
+    border: none;
+    width: 100%;
+}
+
+.spymap .dropdown button:hover {
+    background-color: #f0f0f0;
+}
