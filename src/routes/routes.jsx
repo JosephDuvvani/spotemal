@@ -13,7 +13,7 @@ export default [
         element: <Home />,
       },
       {
-        path: "game",
+        path: "maps/:id",
         element: <Game />,
       }
     ]

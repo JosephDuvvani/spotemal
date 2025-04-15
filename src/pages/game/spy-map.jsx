@@ -4,7 +4,7 @@ import '../../assets/styles/spy-map.css';
 import image from '../../assets/wall-of-art.jpg';
 import { contentOverflow } from '../../utils/utils';
 
-function SpyMap({characters}) {
+function SpyMap({targets}) {
     const [dropdownVisibility, setDropdownVisibility] = useState(false);
     const [dropdownPosition, setDropdownPosition] = useState({x: 0, y: 0, width: 0, height: 0});
     const [menuSize, setMenuSize] = useState(null);
@@ -47,7 +47,7 @@ function SpyMap({characters}) {
             <img src={image} alt="wall" onClick={handleClick} />
                 <TargetDropdown 
                 setSize={setMenuSize}
-                characters={characters}
+                targets={targets}
                 position={dropdownPosition}
                 visibility={dropdownVisibility}
                 setVisibility={setDropdownVisibility}

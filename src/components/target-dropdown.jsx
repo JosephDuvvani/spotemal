@@ -1,6 +1,6 @@
 import { useEffect, useRef} from "react";
 
-const TargetDropdown = ({position, characters, visibility, setVisibility, setSize}) => {
+const TargetDropdown = ({position, targets, visibility, setVisibility, setSize}) => {
     const menuRef = useRef();
 
     useEffect(() => {
@@ -27,11 +27,11 @@ const TargetDropdown = ({position, characters, visibility, setVisibility, setSiz
                 }}
                 ref={menuRef}
             >
-                {characters && characters.length > 0 ? (
+                {targets && targets.length > 0 ? (
                     <ul>
-                        {characters.map((character, index) => (
+                        {targets.map((target, index) => (
                             <li key={index}>
-                                <button onClick={handleClick}>{character.name}</button>
+                                <button onClick={handleClick}>{target.name}</button>
                             </li>
                         ))}
                     </ul>
