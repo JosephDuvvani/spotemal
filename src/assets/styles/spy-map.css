@@ -38,3 +38,29 @@ ul, ol {
 .spymap .dropdown button:hover {
     background-color: #f0f0f0;
 }
+
+.target-bar {
+    display: flex;
+    gap: 1rem;
+    max-width: fit-content;
+    margin: 2rem auto;
+}
+
+.target-bar .target {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.target-bar .target img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5%;
+}
+
+.end-game {
+    font-size: 1rem;
+    padding: .5em 1.5em;
+    margin-top: .5rem;
+    border: none;
+    border-radius: 4px;
+}

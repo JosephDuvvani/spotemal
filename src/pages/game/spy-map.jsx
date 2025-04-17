@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import TargetDropdown from '../../components/target-dropdown';
 import '../../assets/styles/spy-map.css';
-import image from '../../assets/wall-of-art.jpg';
 import { contentOverflow } from '../../utils/utils';
+import MapContext from './context';
 
-function SpyMap({targets}) {
+function SpyMap() {
     const [dropdownVisibility, setDropdownVisibility] = useState(false);
     const [dropdownPosition, setDropdownPosition] = useState({x: 0, y: 0, width: 0, height: 0});
     const [menuSize, setMenuSize] = useState(null);
+
+    const {map ,targets} = useContext(MapContext);
 
     useEffect(() => {
             if (menuSize) {
@@ -44,7 +46,7 @@ function SpyMap({targets}) {
 
     return (
         <section className="spymap">
-            <img src={image} alt="wall" onClick={handleClick} />
+            <img src={map.imageUrl} alt="wall" onClick={handleClick} />
                 <TargetDropdown 
                 setSize={setMenuSize}
                 targets={targets}
