@@ -1,36 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import TargetDropdown from '../../components/target-dropdown';
 import '../../assets/styles/spy-map.css';
-import { contentOverflow } from '../../utils/utils';
 import MapContext from './context';
 
 function SpyMap() {
-    const [dropdownVisibility, setDropdownVisibility] = useState(false);
-    const [dropdownPosition, setDropdownPosition] = useState({x: 0, y: 0, width: 0, height: 0});
-    const [menuSize, setMenuSize] = useState(null);
+    const [targetPosition, setTargetPosition] = useState({x: 0, y: 0, width: 0, height: 0});
 
-    const {map ,targets} = useContext(MapContext);
-
-    useEffect(() => {
-            if (menuSize) {
-                const {width, height} = menuSize;
-    
-                const overflow = contentOverflow(
-                    {width, height},
-                    dropdownPosition
-                )
-                let newPos = {...dropdownPosition};
-        
-                if (overflow.x)
-                    newPos = {...newPos, x: dropdownPosition.x - width};
-        
-                if (overflow.y)
-                    newPos = {...newPos, y: dropdownPosition.y - height};
-        
-                setDropdownPosition(newPos);
-                setDropdownVisibility(true);
-            }
-        }, [dropdownPosition.x, dropdownPosition.y])
+    const {game} = useContext(MapContext);
+    const {imageUrl} = game.map;
 
     const handleClick = (e) => {
         const containerRect = e.currentTarget.getBoundingClientRect();
@@ -40,19 +17,14 @@ function SpyMap() {
         const width = containerRect.width;
         const height = containerRect.height;
 
-        setDropdownVisibility(false);
-        setDropdownPosition({x, y, width, height});
+        setTargetPosition({x, y, width, height});
     };
 
     return (
         <section className="spymap">
-            <img src={map.imageUrl} alt="wall" onClick={handleClick} />
+            <img src={imageUrl} alt="wall" onClick={handleClick} />
                 <TargetDropdown 
-                setSize={setMenuSize}
-                targets={targets}
-                position={dropdownPosition}
-                visibility={dropdownVisibility}
-                setVisibility={setDropdownVisibility}
+                target={targetPosition}
             />
         </section>
     )

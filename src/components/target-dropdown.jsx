@@ -1,18 +1,78 @@
-import { useEffect, useRef} from "react";
+import { useContext, useEffect, useRef, useState} from "react";
+import MapContext from "../pages/game/context";
+import { contentOverflow } from "../utils/utils";
 
-const TargetDropdown = ({position, targets, visibility, setVisibility, setSize}) => {
+const TargetDropdown = ({target}) => {
+    const [position, setPosition] = useState(target);
+    const [visibility, setVisibility] = useState(false);
+    const {game, targets, setTargets, setFinalTime} = useContext(MapContext);
+
     const menuRef = useRef();
 
     useEffect(() => {
-        if (!visibility) {
-            const {width, height} = menuRef.current.getBoundingClientRect();
+        const {width, height} = menuRef.current.getBoundingClientRect();
+            
+        const overflow = contentOverflow(
+            {width, height},
+            target
+        )
+        let newPos = {...target};
 
-            setSize({width, height});
+        if (overflow.x)
+            newPos = {...newPos, x: target.x - width};
+
+        if (overflow.y)
+            newPos = {...newPos, y: target.y - height};
+
+        setPosition(newPos);
+        setVisibility(true);
+    }, [target.x, target.y])
+
+    const spotTarget = (targetId) => {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                targetId,
+                position: {
+                    x: target.x,
+                    y: target.y,
+                },
+                mapSize: {
+                    width: target.width,
+                    height: target.height,
+                }
+            })
         }
-    }, [visibility])
 
-    const handleClick = (e) => {
-        setVisibility(false);
+        fetch(`http://localhost:3000/game/${game.id}/spot`, options)
+            .then(res => res.json())
+            .then(data => {
+                if (data.error)
+                    console.log(error);
+                else if (!data.verified) {
+                    console.log(data.msg);
+                } else if (data.time) {
+                    const startTime = new Date(data.time.start).getTime();
+                    const endTime = new Date(data.time.end).getTime();
+                    const time = endTime - startTime;
+                    const finalTime = time / 1000;
+                    setFinalTime(finalTime);
+                }
+                else {
+                    let newTargets = targets.map(target => {
+                        if (!target.spotted && data.spotted.includes(target.id))
+                            return {...target, spotted: true};
+                        return target;
+                    })
+                    setTargets(newTargets);
+                }
+            })
+            .finally(() => {
+                setVisibility(false);
+            })
     }
 
     return (
@@ -31,7 +91,7 @@ const TargetDropdown = ({position, targets, visibility, setVisibility, setSize})
                     <ul>
                         {targets.map((target, index) => (
                             <li key={index}>
-                                <button onClick={handleClick}>{target.name}</button>
+                                <button onClick={(e) => spotTarget(target.id)}>{target.name}</button>
                             </li>
                         ))}
                     </ul>

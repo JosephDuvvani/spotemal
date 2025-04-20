@@ -2,8 +2,9 @@ button {
     cursor: pointer;
 }
 
-.target-overlay {
-    position: absolute;
+.target-overlay,
+.time-overlay {
+    position: fixed;
     inset: 0;
     background-color: hsla(280, 100%, 10%, 0.8);
     display: flex;

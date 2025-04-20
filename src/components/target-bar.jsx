@@ -7,7 +7,10 @@ const TargetBar = () => {
     return (
         <div className="target-bar">
             {targets.map(target => (
-                <div key={target.id} className="target">
+                <div 
+                    key={target.id}
+                    className={target.spotted ? "target spotted" : "target"}
+                >
                     <img src={target.imageUrl} alt="" />
                     <p>{target.name}</p>
                 </div>

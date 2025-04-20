@@ -50,7 +50,13 @@ ul, ol {
     display: flex;
     align-items: center;
     gap: 1rem;
+    color: green;
 }
+
+.target-bar .target.spotted {
+    color: red;
+}
+
 .target-bar .target img {
     width: 50px;
     height: 50px;

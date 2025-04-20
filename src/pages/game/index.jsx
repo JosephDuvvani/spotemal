@@ -3,12 +3,16 @@ import SpyMap from "./spy-map"
 import useFetch from "../../hooks/useFetch";
 import TargetBar from "../../components/target-bar";
 import { MapProvider } from "./context";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Timer from "../../components/timer";
 
 function Game() {
     const {state} = useLocation();
     const {mapId} = state;
     const navigate = useNavigate();
+
+    const [targets, setTargets] = useState();
+    const [finalTime, setFinalTime] = useState();
 
     const options = {
         method: 'POST',
@@ -27,7 +31,6 @@ function Game() {
 
     const game = data?.game;
     const map = game?.map;
-    const targets = map?.targets;
 
     const endGame = (id) => {
         fetch(`http://localhost:3000/game/${id}/end`, {method: 'POST'})
@@ -40,6 +43,9 @@ function Game() {
     }
 
     useEffect(() => {
+        if (map)
+            setTargets([...map?.targets].map(target => ({...target, spotted: false})));
+
         if (game?.id) {
             window.onbeforeunload = () => {
                 endGame(game.id);
@@ -59,12 +65,15 @@ function Game() {
 
     return (
         <>
-            {map &&
-                <MapProvider value={{map, targets}}>
+            {game && !finalTime &&
+                <MapProvider value={{game, targets, setTargets, setFinalTime}}>
                     <div>
                         <h2>{map.name}</h2>
-                        <TargetBar />
+                        {targets && <TargetBar />}
                         <>
+                            <div className="timer">
+                                <Timer />
+                            </div>
                             <button onClick={handleStop} className="end-game">
                                 Exit
                             </button>
@@ -74,6 +83,12 @@ function Game() {
                 </MapProvider>
             }
             {loading && <p>Loading...</p>}
+            {finalTime &&
+                <div className="time-overlay">
+                    <p>Spotted All Targets</p>
+                    <p>{finalTime.toFixed(2)} s</p>
+                </div>
+            }
         </>
     )
 }
