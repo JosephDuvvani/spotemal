@@ -5,13 +5,13 @@ const TargetBar = () => {
     const {targets} = useContext(MapContext);
 
     return (
-        <div className="target-bar">
+        <div className="targets targets--row">
             {targets.map(target => (
                 <div 
                     key={target.id}
                     className={target.spotted ? "target spotted" : "target"}
                 >
-                    <img src={target.imageUrl} alt="" />
+                    <img src={target.imageUrl} alt="" className="target__image" />
                     <p>{target.name}</p>
                 </div>
             ))}

@@ -1,0 +1,77 @@
+/* Blocks */
+
+.game-clock {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+}
+
+.final-time {
+    background-color: var(--green-900);
+    margin-top: 2rem;
+    padding: .5rem 2rem;
+    border-radius: 6px;
+    font-size: 1.5rem;
+}
+
+.spymap {
+    display: grid;
+    position: relative;
+    max-width: 50rem;
+    overflow: hidden;
+    margin: 0 auto 4rem;
+}
+
+.dropdown {
+    position: absolute;
+    border-radius: 4px;
+    min-width: 100px;
+    background-color: var(--green-100);
+    color: var(--green-900);
+    overflow: hidden;
+}
+
+/* Elements */
+
+.game__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+}
+
+.game__header__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.game__header__btn {
+    padding: 0.25rem 1rem;
+}
+
+.game__header__btn:hover {
+    background-color: var(--color-danger);
+}
+
+.game__main {
+    position: relative;
+}
+
+.spymap__image {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.dropdown__btn {
+    margin: 0;
+    padding: .5rem;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+}
+
+.dropdown__btn:hover {
+    background-color: var(--green-800);
+    color: var(--green-50);
+}

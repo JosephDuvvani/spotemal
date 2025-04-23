@@ -5,6 +5,7 @@ import TargetBar from "../../components/target-bar";
 import { MapProvider } from "./context";
 import { useEffect, useState } from "react";
 import Timer from "../../components/timer";
+import '../../assets/styles/game.css';
 
 function Game() {
     const {state} = useLocation();
@@ -65,28 +66,42 @@ function Game() {
 
     return (
         <>
-            {game && !finalTime &&
-                <MapProvider value={{game, targets, setTargets, setFinalTime}}>
-                    <div>
-                        <h2>{map.name}</h2>
-                        {targets && <TargetBar />}
-                        <>
-                            <div className="timer">
-                                <Timer />
-                            </div>
-                            <button onClick={handleStop} className="end-game">
-                                Exit
-                            </button>
-                            <SpyMap />
-                        </>
-                    </div>
-                </MapProvider>
-            }
-            {loading && <p>Loading...</p>}
+            <header className="game__header">
+                <h1 className="game__header__title">SPOTEMAL</h1>
+                {!finalTime &&
+                    <button onClick={handleStop} className="btn game__header__btn">
+                        Exit
+                    </button>
+                }
+            </header>
+            <main className="game__main">
+                {game &&
+                    <MapProvider value={{game, targets, setTargets, setFinalTime}}>
+                        <div>
+                            <h3 className="caption">{map.name}</h3>
+                            {targets && <TargetBar />}
+                            {!finalTime && 
+                                <div className="game-clock">
+                                    <Timer />
+                                </div>
+                            }
+                            <SpyMap />   
+                        </div>
+                    </MapProvider>
+                }
+                {loading && <p>Loading...</p>}
+            </main>
             {finalTime &&
-                <div className="time-overlay">
-                    <p>Spotted All Targets</p>
-                    <p>{finalTime.toFixed(2)} s</p>
+                <div className="overlay">
+                    <h4 className="overlay__title">All Targets Spotted</h4>
+                    <p>IN</p>
+                    <p className="final-time">{finalTime.toFixed(2)} s</p>
+                    <button
+                        className="overlay__close-btn"
+                        onClick={() => navigate('/', {replace: true})}
+                    >
+                        <span aria-hidden>X</span>
+                    </button>
                 </div>
             }
         </>

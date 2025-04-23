@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
-import TargetOverlay from "../../components/target-overlay.jsx";
+import Overlay from "../../components/overlay.jsx";
 
 function Home() {
     const [maps, setMaps] = useState(null);
@@ -42,26 +42,50 @@ function Home() {
 
     return (
         <>
-            <h1>Welcome to Spotemal!</h1>
-            <p>Click on the links to navigate.</p>  
-            <div>
+            <h1 className="title">SPOTEMAL</h1>
+            <h2 className="caption">CAN YOU SPOT THE TARGET?</h2>
+            <div className="games">
                 {loading && <p>Loading...</p>}
                 {maps &&
                     maps.map(map => (
-                        <div key={map.id}>
-                            <button onClick={() => setTargets(map.targets)}>
-                                {map.name}
+                        <div key={map.id} className="card">
+                            <h2 className="card__title">{map.name}</h2>
+                            <img src={map.imageUrl} alt="" className="card__image" />
+                            <button
+                                className="btn card__btn"
+                                onClick={() => setTargets(map.targets)}
+                            >
+                                PLAY GAME
                             </button>
                         </div>
                     ))
                 }
             </div>
             {targets && (
-                <TargetOverlay
-                    targets={targets}
-                    close={() => setTargets(null)}
-                    start={() => handleStart(targets[0].mapId)}
-                />
+                <Overlay>
+                    <h3 className="overlay__title">Targets</h3>
+                    <div className="targets">
+                        {targets.map((target, index) => (
+                            <div key={index} className='target'>
+                                <img src={target.imageUrl} alt="" className="target__image" />
+                                <p className="target__name">{target.name}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <button
+                        className='btn'
+                        onClick={() => handleStart(targets[0].mapId)}
+                    >
+                        START GAME
+                    </button>
+                    <button
+                        className="overlay__close-btn"
+                        onClick={() => setTargets(null)}
+                        aria-label="Close overlay"
+                    >
+                        <span aria-hidden>X</span>
+                    </button>
+                </Overlay>
             )}
         </>
     )

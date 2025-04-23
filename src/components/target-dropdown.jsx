@@ -91,7 +91,12 @@ const TargetDropdown = ({target}) => {
                     <ul>
                         {targets.map((target, index) => (
                             <li key={index}>
-                                <button onClick={(e) => spotTarget(target.id)}>{target.name}</button>
+                                <button
+                                    className="dropdown__btn"
+                                    onClick={(e) => spotTarget(target.id)}
+                                >
+                                    {target.name}
+                                </button>
                             </li>
                         ))}
                     </ul>

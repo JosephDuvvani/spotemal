@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react';
 import TargetDropdown from '../../components/target-dropdown';
-import '../../assets/styles/spy-map.css';
 import MapContext from './context';
 
 function SpyMap() {
@@ -22,10 +21,13 @@ function SpyMap() {
 
     return (
         <section className="spymap">
-            <img src={imageUrl} alt="wall" onClick={handleClick} />
-                <TargetDropdown 
-                target={targetPosition}
+            <img
+                className='spymap__image'
+                src={imageUrl}
+                alt="map"
+                onClick={handleClick}
             />
+            <TargetDropdown target={targetPosition} />
         </section>
     )
 }
