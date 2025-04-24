@@ -7,11 +7,11 @@
 }
 
 .final-time {
-    background-color: var(--green-900);
-    margin-top: 2rem;
-    padding: .5rem 2rem;
-    border-radius: 6px;
-    font-size: 1.5rem;
+    background-color: var(--green-700);
+    margin-block: 0 1rem;
+    padding: .25em 1em;
+    border-radius: 50vh;
+    font-size: 1.312rem;
 }
 
 .spymap {
@@ -29,6 +29,14 @@
     background-color: var(--green-100);
     color: var(--green-900);
     overflow: hidden;
+}
+
+.user-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 /* Elements */
@@ -74,4 +82,14 @@
 .dropdown__btn:hover {
     background-color: var(--green-800);
     color: var(--green-50);
+}
+
+.user-form__error {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 50vh;
+    background-color: var(--color-error-bg);
+    color: var(--color-error);
+    font-size: 0.875rem;
+    text-align: center;
 }

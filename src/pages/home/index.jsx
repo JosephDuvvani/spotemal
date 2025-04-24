@@ -6,6 +6,7 @@ function Home() {
     const [maps, setMaps] = useState(null);
     const [targets, setTargets] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [scores, setScores] = useState(null);
     const navigate = useNavigate();
 
     const getMaps = () => {
@@ -50,6 +51,9 @@ function Home() {
                     maps.map(map => (
                         <div key={map.id} className="card">
                             <h2 className="card__title">{map.name}</h2>
+                            <button className="card__scores-btn" onClick={() => setScores({scorers: map.scorers, title: map.name})}>
+                                VIEW TOP SCORES
+                            </button>
                             <img src={map.imageUrl} alt="" className="card__image" />
                             <button
                                 className="btn card__btn"
@@ -87,6 +91,29 @@ function Home() {
                     </button>
                 </Overlay>
             )}
+            {scores && 
+                <Overlay>
+                    {scores.scorers.length > 0 ?
+                        <table>
+                            <caption>{scores.title} Top 10</caption>
+                            <tr>
+                                <th>Player Name</th>
+                                <th>TIME (s)</th>
+                            </tr>
+                            {scores.scorers.map(scorer => (
+                                <tr key={scorer.id}>
+                                    <td>{scorer.username}</td>
+                                    <td>{scorer.time}</td>
+                                </tr>
+                            ))}
+                        </table> : 
+                        <div>No Scorers</div>
+                    }
+                    <button className="overlay__close-btn" onClick={() => setScores(null)}>
+                        <span aria-hidden>X</span>
+                    </button>
+                </Overlay>
+            }
         </>
     )
 }

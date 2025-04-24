@@ -61,6 +61,8 @@ p {
 
     --overlay-bgcolor: hsla(180, 8%, 5%, 0.7);
     --color-danger: hsl(0, 10%, 45%);
+    --color-error: hsl(0, 70%, 50%);
+    --color-error-bg: hsl(0, 50%, 95%);
 }
 
 /* Global styles */
@@ -70,6 +72,32 @@ body {
     color: var(--green-50);
     line-height: 1.5;
     font-family: 'inter', sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    background-color: var(--green-700);
+    border-radius: 6px;
+    min-width: 300px;
+}
+
+th {
+    background-color: hsl(180 8 5 / 0.5);
+}
+
+th, td {
+    padding: 0.5rem 1rem;
+    text-align: center;
+}
+
+tr:nth-child(odd) {
+    background-color: hsl(180 8 5 / 0.1);
+}
+
+caption {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
 }
 
 /* Utility Classes */
@@ -91,6 +119,21 @@ body {
 
 .spotted {
     opacity: 0.4;
+}
+
+.text-input {
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    background-color: var(--green-100);
+    color: var(--green-900);
+    text-align: center;
+}
+
+.text-input:focus {
+    outline: none;
+    background-color: var(--green-200);
 }
 
 /* Blocks */
@@ -116,6 +159,7 @@ body {
 .games {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    justify-items: center;
     gap: 2rem;
     max-width: 900px;
     margin: 4rem auto 0;
@@ -143,17 +187,20 @@ body {
 .targets {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    background-color: var(--green-900);
-    padding: 1rem;
     margin-bottom: 1rem;
-    border-radius: 6px;
+    overflow: hidden;
 }
 
 .target {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    padding: 1rem;
+    padding-right: 2rem;
+    background-color: var(--green-900);
+}
+
+.target:nth-child(odd) {
+    background-color: var(--green-800);
 }
 
 .start {
@@ -170,6 +217,22 @@ body {
     font-family: 'Lacquer', sans-serif;
     font-size: 2.938rem;
     order: 3;
+}
+
+.card__scores-btn {
+    position: absolute;
+    left: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--green-400);
+    transform: translateY(calc(-100% - 0.5em));
+}
+
+.card__scores-btn:hover {
+    color: var(--green-100);
+    text-decoration: underline;
 }
 
 .card__image {

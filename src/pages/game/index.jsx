@@ -6,6 +6,7 @@ import { MapProvider } from "./context";
 import { useEffect, useState } from "react";
 import Timer from "../../components/timer";
 import '../../assets/styles/game.css';
+import UserForm from "../../components/user-form";
 
 function Game() {
     const {state} = useLocation();
@@ -38,7 +39,7 @@ function Game() {
             .then(res => res.json())
             .then(data => {
                 if (data.error) {
-                    console.log(data.error);
+                    console.error(data.error.msg);
                 }
             })
     }
@@ -85,25 +86,28 @@ function Game() {
                                     <Timer />
                                 </div>
                             }
-                            <SpyMap />   
+                            
+                            <SpyMap /> 
+
+                            {finalTime &&
+                                <div className="overlay">
+                                    <h4 className="overlay__title">All Targets Spotted</h4>
+                                    <p>IN</p>
+                                    <p className="final-time">{finalTime.toFixed(2)} s</p>
+                                    <UserForm time={finalTime} />
+                                    <button
+                                        className="overlay__close-btn"
+                                        onClick={() => navigate('/', {replace: true})}
+                                    >
+                                        <span aria-hidden>X</span>
+                                    </button>
+                                </div>
+                            }  
                         </div>
                     </MapProvider>
                 }
                 {loading && <p>Loading...</p>}
             </main>
-            {finalTime &&
-                <div className="overlay">
-                    <h4 className="overlay__title">All Targets Spotted</h4>
-                    <p>IN</p>
-                    <p className="final-time">{finalTime.toFixed(2)} s</p>
-                    <button
-                        className="overlay__close-btn"
-                        onClick={() => navigate('/', {replace: true})}
-                    >
-                        <span aria-hidden>X</span>
-                    </button>
-                </div>
-            }
         </>
     )
 }
