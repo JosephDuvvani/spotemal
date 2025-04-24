@@ -47,7 +47,9 @@ const TargetDropdown = ({target}) => {
             })
         }
 
-        fetch(`http://localhost:3000/game/${game.id}/spot`, options)
+        const apiUrl = import.meta.env.VITE_SPOTEMAL_API_URL;
+
+        fetch(`${apiUrl}/game/${game.id}/spot`, options)
             .then(res => res.json())
             .then(data => {
                 if (data.error)

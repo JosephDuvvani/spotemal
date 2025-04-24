@@ -17,7 +17,8 @@ const UserForm = ({time}) => {
             setError('Please enter a valid name');
             return;
         }
-        const url = `http://localhost:3000/maps/${id}/scorer`
+        const apiUrl = import.meta.env.VITE_SPOTEMAL_API_URL;
+        const url = `${apiUrl}/maps/${id}/scorer`
         const options = {
             method: 'POST',
             headers: {

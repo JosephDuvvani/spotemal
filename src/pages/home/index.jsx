@@ -10,7 +10,8 @@ function Home() {
     const navigate = useNavigate();
 
     const getMaps = () => {
-        fetch("http://localhost:3000/maps")
+        const apiUrl = import.meta.env.VITE_SPOTEMAL_API_URL;
+        fetch(`${apiUrl}/maps`)
             .then(res => res.json())
             .then(data => {
                 if (data.error) {

@@ -16,6 +16,7 @@ function Game() {
     const [targets, setTargets] = useState();
     const [finalTime, setFinalTime] = useState();
 
+    const apiUrl = import.meta.env.VITE_SPOTEMAL_API_URL;
     const options = {
         method: 'POST',
         headers: {
@@ -26,7 +27,7 @@ function Game() {
         })
     }
 
-    const {data, loading, error} = useFetch(`http://localhost:3000/game`, options);
+    const {data, loading, error} = useFetch(`${apiUrl}/game`, options);
 
     if (error)
         console.log(error);
@@ -35,7 +36,7 @@ function Game() {
     const map = game?.map;
 
     const endGame = (id) => {
-        fetch(`http://localhost:3000/game/${id}/end`, {method: 'POST'})
+        fetch(`${apiUrl}/game/${id}/end`, {method: 'POST'})
             .then(res => res.json())
             .then(data => {
                 if (data.error) {
