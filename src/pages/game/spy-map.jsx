@@ -1,12 +1,13 @@
 import { useContext, useState } from 'react';
 import TargetDropdown from '../../components/target-dropdown';
 import MapContext from './context';
+import { MapsContext } from '../../App';
 
 function SpyMap() {
     const [targetPosition, setTargetPosition] = useState({x: 0, y: 0, width: 0, height: 0});
 
-    const {game} = useContext(MapContext);
-    const {imageUrl} = game.map;
+    const {activeMap} = useContext(MapsContext);
+    const imageUrl = activeMap?.imageUrl;
 
     const handleClick = (e) => {
         const containerRect = e.currentTarget.getBoundingClientRect();

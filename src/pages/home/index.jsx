@@ -1,40 +1,17 @@
 import { useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Overlay from "../../components/overlay.jsx";
+import { MapsContext } from "../../App.jsx";
 
 function Home() {
-    const [maps, setMaps] = useState(null);
+    const {maps, loading, setActiveMap} = useContext(MapsContext);
+
     const [targets, setTargets] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [scores, setScores] = useState(null);
     const navigate = useNavigate();
 
-    const getMaps = () => {
-        const apiUrl = import.meta.env.VITE_SPOTEMAL_API_URL;
-        fetch(`${apiUrl}/maps`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) {
-                    console.log(data.error);
-                } else {
-                    setMaps(data.maps);
-                }
-            })
-            .finally(() => {
-                setLoading(false);
-            })
-    }
-
-    useEffect(() => {
-        const abortController = new AbortController();
-        getMaps();
-
-        return () => {
-            abortController.abort();
-        }
-    }, [])
-
     const handleStart = (mapId) => {
+        setActiveMap([...maps].find(map => map.id === mapId));
         navigate("/game", {
             state: {
                 mapId,

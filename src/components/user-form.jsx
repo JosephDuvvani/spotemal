@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import MapContext from "../pages/game/context";
 import { useNavigate } from "react-router-dom";
+import { MapsContext } from "../App";
 
 const UserForm = ({time}) => {
     const [username, setUserName] = useState('');
@@ -9,6 +10,7 @@ const UserForm = ({time}) => {
     const navigate = useNavigate();
     const {game} = useContext(MapContext);
     const id = game?.mapId;
+    const {refreshScorers} = useContext(MapsContext);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -33,7 +35,13 @@ const UserForm = ({time}) => {
         }
         
         fetch(url, options)
-            .then(() => {
+            .then(res => res.json())
+            .then(data => {
+                if (data.scorer) {
+                    refreshScorers(id);
+                }
+            })
+            .finally(() => {
                 navigate('/', {replace: true});
             })
     }
